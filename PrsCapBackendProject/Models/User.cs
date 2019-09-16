@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrsCapBackendProject.Models {
-    public class User {
+    public class User {     //Database-first classes are "partial".  Do I need to do that?
 
         //PROPERTIES
         [Required]

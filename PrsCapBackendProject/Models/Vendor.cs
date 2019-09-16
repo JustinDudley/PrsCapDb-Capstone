@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrsCapBackendProject.Models {
-    public class Vendor {
+    public class Vendor {       //Database-first classes are "partial".  Do I need to do that?
 
         public int Id { get; set; }  // how to auto-generate (1,1)?
         // How to make "Code" unique??  (Unique in specs)

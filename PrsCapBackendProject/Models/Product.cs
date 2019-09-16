@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace PrsCapBackendProject.Models {
-    public class Product {
+    public class Product {      //Database-first classes are "partial".  Do I need to do that?
 
         public int Id { get; set; }    // how to auto-generate (1,1) ?
         [Required]
