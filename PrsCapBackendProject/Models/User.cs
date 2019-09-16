@@ -8,7 +8,7 @@ namespace PrsCapBackendProject.Models {
     public class User {
 
         //PROPERTIES
-        int Id { get; set; }    // how to auto-generate?
+        int Id { get; set; }    // how to auto-generate? 
         [StringLength(30)]
         string Username { get; set; }
         [StringLength(30)]
