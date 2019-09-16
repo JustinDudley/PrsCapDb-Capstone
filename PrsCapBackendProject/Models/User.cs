@@ -9,11 +9,10 @@ namespace PrsCapBackendProject.Models {
 
         //PROPERTIES
         [Required]
-        public int Id { get; set; }    // how to auto-generate? How to set (1,1)? //  Should this be private set??
-        //USERNAME MUST BE UNIQUE. See CustDbContext file from other solution?  Fluent API?
+        public int Id { get; set; }    // auto-generates, (1,1) // Should this be private set??
         [Required]
         [StringLength(30)]
-        public string Username { get; set; }
+        public string Username { get; set; } // Uniqueness of Username is set using Fluent API Syntax, in PrsCapDbContext file
         [Required]
         [StringLength(30)]
         public string Password { get; set; }
@@ -27,10 +26,8 @@ namespace PrsCapBackendProject.Models {
         public string Phone { get; set; } // Do a CATCH in case system throws exception for too many digits entered?
         [StringLength(255)]
         public string Email { get; set; }
-        // The "Required" attribute not necessary? If not, why not? [Required]
-        public bool IsReviewer { get; set; } = false;
-        // The "Required" attribute not necessary? If not, why not? [Required]
-        public bool IsAdmin { get; set; } = false;
+        public bool IsReviewer { get; set; } = false;  // "Required" attribute not necessary, since bool, numbers can't be null
+        public bool IsAdmin { get; set; } = false;  // "Required" attribute not necessary, since bool, numbers can't be null
 
         public User() {
 

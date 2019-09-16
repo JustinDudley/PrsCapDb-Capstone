@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 namespace PrsCapBackendProject.Models {
     public class Vendor {       //Database-first classes are "partial".  Do I need to do that?
 
-        public int Id { get; set; }  // how to auto-generate (1,1)?
-        // How to make "Code" unique??  (Unique in specs)
+        public int Id { get; set; }     // auto-generates to (1,1)
         [Required]
         [StringLength(30)]
-        public string Code { get; set; }
+        public string Code { get; set; }  // Uniqueness of Code is set using Fluent API Syntax, in PrsCapDbContext file
         [Required]
         [StringLength(30)]
         public string Name { get; set; }

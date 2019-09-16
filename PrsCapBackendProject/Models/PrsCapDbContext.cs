@@ -21,7 +21,31 @@ namespace PrsCapBackendProject.Models {
         }
 
 
-        // FLUENT API SYNTAX ?
+
+        // UNIQUENESS OF A COLUMN.  Done with "Fluent API syntax". 
+        // This method (called by the system) ensures that certain columns in the three tables below are set to be unique. 
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<User>(entity => {
+                entity.HasIndex(e => e.Username)
+                .HasName("IDX_Username")
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<Vendor>(entity => {
+                entity.HasIndex(e => e.Code)
+                .HasName("IDX_Code")
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<Product>(entity => {
+                entity.HasIndex(e => e.PartNbr)
+                .HasName("IDX_PartNbr")
+                    .IsUnique();
+            });
+        }
+
+
+
 
     }
 }

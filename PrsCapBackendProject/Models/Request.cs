@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PrsCapBackendProject.Models {
     public class Request {  //Database-first classes are "partial".  Do I need to do that?
 
-        public int Id { get; set; }  // how to auto-generate, (1,1) ?
+        public int Id { get; set; }    // auto-generates to (1,1)
         [Required]
         [StringLength(80)]
         public string Description { get; set; }
@@ -23,11 +23,9 @@ namespace PrsCapBackendProject.Models {
         [Required]
         [StringLength(10)]
         public string Status { get; set; } = "NEW";
-        // "Required attribute not necessary?
         [Column(TypeName = "decimal(11, 2)")]
-        public decimal Total { get; set; } = 0;
-        // "Required attribute not necessary?
-        public int UserId { get; set; }
+        public decimal Total { get; set; } = 0;  // "Required" attribute not necessary, since bool, numbers can't be null
+        public int UserId { get; set; }  // "Required" attribute not necessary, since bool, numbers can't be null
 
         // Specs: "There should be a virtual `User` instance in the Request to hold the FK instance when reading a Request"
         public virtual User User { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace PrsCapBackendProject.Models {
     public class RequestLine {
 
-        public int Id { get; set; }     // how to generate (1,1) ?
+        public int Id { get; set; }     // auto-generates to (1,1)
         public int Quantity { get; set; } = 1;
         public int RequestId { get; set; }
         public int ProductId { get; set; }
