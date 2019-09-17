@@ -23,7 +23,7 @@ namespace PrsCapBackendProject.Models {
         [Required]
         [StringLength(10)]
         public string Status { get; set; } = "NEW";
-        [Column(TypeName = "decimal(11, 2)")]
+        [Column(TypeName = "decimal(12, 2)")]
         public decimal Total { get; set; } = 0;  // "Required" attribute not necessary, since bool, numbers can't be null
         public int UserId { get; set; }  // "Required" attribute not necessary, since bool, numbers can't be null
 
