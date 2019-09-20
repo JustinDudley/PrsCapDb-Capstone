@@ -39,9 +39,8 @@ namespace PrsCapBackendProject.Controllers
             return userCandidate;
 
         }
-
-
-
+        
+         
 
 
         // GET: api/Users

@@ -22,7 +22,7 @@ namespace PrsCapBackendProject.Models {
 
 
 
-        // UNIQUENESS OF A COLUMN.  Done with "Fluent API syntax". 
+        // UNIQUENESS OF A COLUMN.  Done with "Fluent API syntax" (== "method syntax", it seems). 
         // This method (called by the system) ensures that certain columns in the three tables below are set to be unique. 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<User>(entity => {
