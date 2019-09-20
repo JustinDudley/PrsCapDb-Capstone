@@ -20,17 +20,48 @@ namespace PrsCapBackendProject.Controllers
             _context = context;
         }
 
-        // Need to test this with dollar amounts near $50.00, and with $0.00, etc.
+
+
+        // A METHOD FOR APPROVAL
+        // COPIED FROM REJECT METHOD BELOW
+        // THIS METHOD IS USED BY A REVIEWER TO REJECT A REQUEST.  IT TAKES AN ID OF A REQUEST (REQUEST.ID) AND CHANGES THE STATUS TO "REJECTED".
+        // PUT: api/Requests/reject/5
+        [HttpPut("approve/{id}")]    //OKAY, so this attribute, in brackets, must be the thing that recognizes when a user, through postman,say, has entered the correct text in URL, namely, review/2.  AND, this line determines that the 2 should be put into the value {id}, which I assume is how the argument "int id" is fed.
+        public async Task<IActionResult> PutStatusApprove(int id) {  // Note:  Do NOT send an instance in the body of postman for this method.  (Not sure if it gets ignored, or if it gets misused, if I send it)
+            var request = await _context.Requests.FindAsync(id);
+            if (request == null) {
+                return NotFound();
+            }
+            request.Status = "APPROVED";    //BUT USE A CONSTANT STRING
+            _context.SaveChanges();
+            return NoContent();
+        }
+
+
+        // THIS METHOD IS USED BY A REVIEWER TO REJECT A REQUEST.  IT TAKES AN ID OF A REQUEST (REQUEST.ID) AND CHANGES THE STATUS TO "REJECTED".
+        // PUT: api/Requests/reject/5
+        [HttpPut("reject/{id}")]    //OKAY, so this attribute, in brackets, must be the thing that recognizes when a user, through postman,say, has entered the correct text in URL, namely, review/2.  AND, this line determines that the 2 should be put into the value {id}, which I assume is how the argument "int id" is fed.
+        public async Task<IActionResult> PutStatusReject(int id) {  // Note:  Do NOT send an instance in the body of postman for this method.  (Not sure if it gets ignored, or if it gets misused, if I send it)
+            var request = await _context.Requests.FindAsync(id);
+            if (request == null) {
+                return NotFound();
+            }
+            request.Status = "REJECTED";    //BUT USE A CONSTANT STRING
+            _context.SaveChanges();
+            return NoContent();
+        }
+
+
         // THIS IS A METHOD WHICH RECEIVES INPUT FROM A USER.  THE USER PICKS ONE OF THEIR PRE-EXISTING REQUESTS IN THE Db, SENDS
         // THE ID NUMBER, AND SOME BIT OF INFO THAT MEANS "THIS IS FOR REVIEW", AND THE METHOD HERE TAKES THE INFO AS ARGUMENTS
         // PUT: api/Requests/review/5
         [HttpPut("review/{id}")]    //OKAY, so this attribute, in brackets, must be the thing that recognizes when a user, through postman,say, has entered the correct text in URL, namely, review/2.  AND, this line determines that the 2 should be put into the value {id}, which I assume is how the argument "int id" is fed.
-        public async Task<IActionResult> PutStatusReview(int id) {
+        public async Task<IActionResult> PutStatusReview(int id) {  // Note:  Do NOT send an instance in the body of postman for this method.  (Not sure if it gets ignored, or if it gets misused, if I send it)
             var request = await _context.Requests.FindAsync(id);
             if(request == null) {
                 return NotFound();
             }
-            if (Decimal.Compare(request.Total, 50) < 0) {
+            if (Decimal.Compare(request.Total, 50.0M) < 0) {    // Don't forget M, to indicate it's a decimal !!
                 request.Status = "APPROVED"; //BUT:  USE CONSTANT STRING, DEFINE THEM AT TOP
             }  else {
             request.Status = "REVIEW";  // BUT USE CONSTANT STRING
