@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,10 +17,16 @@ namespace PrsCapBackendProject.Models {
         public virtual Product Product { get; set; }
 
 
+        //NOT SURE IF I SHOULD ADD 2 LINES CODE BELOW.  9/24:
+        [JsonIgnore]
+        public virtual Request Request { get; set; }
+
+
+
+
         public RequestLine() {
 
         }
-
 
     }
 }

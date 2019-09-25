@@ -67,7 +67,7 @@ namespace PrsCapBackendProject.Controllers
             if(request == null) {
                 return NotFound();
             }
-            if (Decimal.Compare(request.Total, 50.0M) < 0) {    // Don't forget M, to indicate it's a decimal !!
+            if (Decimal.Compare(request.Total, 50.0M) <= 0) {    // M indicates decimal 
                 request.Status = StatusIsApproved;
             } else {
                 request.Status = StatusIsReview;
