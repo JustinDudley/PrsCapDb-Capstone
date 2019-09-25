@@ -31,7 +31,7 @@ namespace PrsCapBackendProject.Models {
         public virtual User User { get; set; }
 
         // Specs: "There should be a virtual collection of `RequestLine` instances in the Request to hold the collection of lines related to this Request."
-        public virtual ICollection<RequestLine> RequestLines { get; set; }
+        public virtual ICollection<RequestLine> RequestLines { get; set; }  // "virtual- can be overridden in derived class." (Applicable?)
 
 
         public Request() {

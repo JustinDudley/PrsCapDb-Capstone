@@ -23,8 +23,16 @@ namespace PrsCapBackendProject.Controllers
         public RequestsController(PrsCapDbContext context)
         {
             _context = context;
-        } 
+        }
 
+
+        // return list of requests to reviewer: All requests that are in REVIEW status, but do NOT belong to the reviewer.
+        [HttpGet("list/{id}")]
+        public async Task<ActionResult<IEnumerable<Request>>> GetRequestsToReview(int userId) {
+            var requests = await _context.Requests.ToListAsync();
+            return requests.Where(e => e.Status == StatusIsReview && e.UserId != userId).ToList();
+        }
+           
 
         private async Task<bool> SetStatusValidAsync(int id, string statusUpdate) {
             var request = await _context.Requests.FindAsync(id);
