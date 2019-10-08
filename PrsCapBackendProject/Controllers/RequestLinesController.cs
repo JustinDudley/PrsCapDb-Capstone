@@ -20,13 +20,9 @@ namespace PrsCapBackendProject.Controllers
             _context = context;
         }
 
-
-        // recalculate Total.  Although this method lives in the RequestLinesController class, and 
-        // although the URL includes 
-        // a call to RequestLines, the Id in the URL is NOT RequestLines.Id, but is 
-        // in fact requestId, a.k.a Requests.Id.
-        // Called only by one method below: GetRequestLine()  (GetByPk)
+        // called by put, post, and delete methods below.  They pass in requestId, a.k.a. Requests.Id.
         private void RecalcTotal(int requestId) {
+
             var request = _context.Requests.Find(requestId);
             if(request == null) {
                 throw new Exception("There is no request matching this ID"); // indicates a serious problem
@@ -46,8 +42,6 @@ namespace PrsCapBackendProject.Controllers
         }
 
 
-        // Multi-purpose method, used either to (1) get ReqLine by PK, OR to (2) recalculate Request.Total
-        // When used to recalculate, it still returns a requestlin, which will not be used for anything. Is that ok?
         // GET: api/RequestLines/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RequestLine>> GetRequestLine(int id) {
@@ -58,7 +52,6 @@ namespace PrsCapBackendProject.Controllers
                 return NotFound();
             }
 
-            RecalcTotal(id);  // CALL METHOD TO RECALCULATE REQUEST.TOTAL
             return requestLine;
         }
 
@@ -88,6 +81,10 @@ namespace PrsCapBackendProject.Controllers
                 }
             }
 
+            // capture requestId, then call RecalcTotal
+            var requestId = requestLine.RequestId;
+            RecalcTotal(requestId);
+
             return NoContent();
         }
 
@@ -97,7 +94,9 @@ namespace PrsCapBackendProject.Controllers
             _context.RequestLines.Add(requestLine);
             await _context.SaveChangesAsync();
 
-
+            // capture requestId, then call RecalcTotal
+            var requestId = requestLine.RequestId;
+            RecalcTotal(requestId);
 
             return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
         }
@@ -111,8 +110,11 @@ namespace PrsCapBackendProject.Controllers
                 return NotFound();
             }
 
+            // capture requestId before deletion, then do the delete (.Remove), then call RecalcTotal.
+            var requestId = requestLine.RequestId;
             _context.RequestLines.Remove(requestLine);
             await _context.SaveChangesAsync();
+            RecalcTotal(requestId); 
 
             return requestLine;
         }

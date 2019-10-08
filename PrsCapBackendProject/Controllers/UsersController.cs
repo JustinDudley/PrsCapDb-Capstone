@@ -34,7 +34,7 @@ namespace PrsCapBackendProject.Controllers
             User userCandidate = await _context.Users.SingleOrDefaultAsync(u => u.Username.Equals(username) && u.Password.Equals(password));
 
             if (userCandidate == null) {
-                return NotFound();
+                return NotFound();  // returns null to the front-end, I think
             }
             return userCandidate;
 
