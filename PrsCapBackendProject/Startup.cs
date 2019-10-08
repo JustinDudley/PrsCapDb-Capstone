@@ -23,7 +23,7 @@ namespace PrsCapBackendProject {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
 
-
+            
 
             // All but these 5 lines auto-generated.  Create and name the database "PrsCapDb" 
             var connStr = @"server=localhost\sqlexpress;database=PrsCapDb;trusted_connection=true;";  // Establish connection string
@@ -31,7 +31,7 @@ namespace PrsCapBackendProject {
                 option.UseLazyLoadingProxies();  // for FK's
                 option.UseSqlServer(connStr);
             });
-
+            
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

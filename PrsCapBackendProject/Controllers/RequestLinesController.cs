@@ -21,9 +21,11 @@ namespace PrsCapBackendProject.Controllers
         }
 
 
-        // recalculate Total.  Although this method lives in the RequestLinesController class, and although the URL includes 
-        // a call to RequestLines, the Id in the URL is NOT RequestLines.Id, but is in fact requestId, a.k.a Requests.Id
-        // As of Sept. 24, calls to this method are peppered throughout this class: In get, getbyPk, put, insert, and delete.
+        // recalculate Total.  Although this method lives in the RequestLinesController class, and 
+        // although the URL includes 
+        // a call to RequestLines, the Id in the URL is NOT RequestLines.Id, but is 
+        // in fact requestId, a.k.a Requests.Id.
+        // Called only by one method below: GetRequestLine()  (GetByPk)
         private void RecalcTotal(int requestId) {
             var request = _context.Requests.Find(requestId);
             if(request == null) {
@@ -42,6 +44,7 @@ namespace PrsCapBackendProject.Controllers
         public async Task<ActionResult<IEnumerable<RequestLine>>> GetRequestLines() {
             return await _context.RequestLines.ToListAsync();
         }
+
 
         // Multi-purpose method, used either to (1) get ReqLine by PK, OR to (2) recalculate Request.Total
         // When used to recalculate, it still returns a requestlin, which will not be used for anything. Is that ok?
@@ -93,6 +96,8 @@ namespace PrsCapBackendProject.Controllers
         public async Task<ActionResult<RequestLine>> PostRequestLine(RequestLine requestLine) {
             _context.RequestLines.Add(requestLine);
             await _context.SaveChangesAsync();
+
+
 
             return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
         }

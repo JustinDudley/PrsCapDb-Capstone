@@ -26,8 +26,10 @@ namespace PrsCapBackendProject.Controllers
         }
 
 
-        // return list of requests to reviewer: All requests that are in REVIEW status, but do NOT belong to the reviewer.
-        [HttpGet("list/{id}")]
+        // return list of requests to reviewer: All requests that are 
+        // in REVIEW status, but do NOT belong to the reviewer.
+        // GET: api/Requests/list/5
+        [HttpGet("list/{userId}")]
         public async Task<ActionResult<IEnumerable<Request>>> GetRequestsToReview(int userId) {
             var requests = await _context.Requests.ToListAsync();
             return requests.Where(e => e.Status == StatusIsReview && e.UserId != userId).ToList();
@@ -45,7 +47,7 @@ namespace PrsCapBackendProject.Controllers
         }
 
         // Takes id (from reviewer), changes status to "APPROVED" 
-        // PUT: api/Requests/reject/5
+        // PUT: api/Requests/approve/5
         [HttpPut("approve/{id}")]    // attribute, in brackets, is what listens for and hears Postman's http call (URL)  eg. approve/5.  AND, this line determines that the value 5 is passed into the method 
         public async Task<IActionResult> PutStatusApproved(int id) {  // Note:  Do NOT send an instance in the body of postman for this method.  (Not sure if this would get ignored, or actually misused)
             if (await SetStatusValidAsync(id, StatusIsApproved)) {
