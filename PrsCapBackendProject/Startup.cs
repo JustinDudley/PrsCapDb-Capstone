@@ -31,8 +31,8 @@ namespace PrsCapBackendProject {
                 option.UseLazyLoadingProxies();  // for FK's
                 option.UseSqlServer(connStr);
             });
-            
 
+            services.AddCors();     // added this after PM package manager
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -43,6 +43,7 @@ namespace PrsCapBackendProject {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());   // added this too
             app.UseMvc();
         }
     }
