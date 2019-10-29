@@ -56,9 +56,28 @@ namespace PrsCapBackendProject.Controllers
                 return NotFound();
             }
         }
+        
 
+        // NO NO NO NO NO  NO  NO  NO  THIS ISN'T JUST GOING TO WORK.  MY METHOD WHICH IS NOW
+        // COMMENTED OUT CONTAINED A FUNCTION THAT NOW ISN'T GETTING CALLED. i'M GOING
+        // TO HAVE TO LOOK AT THIS IN DETAIL AND FIGURE OUT HOW TO INTEGRATE THIS NEW
+        // METHOD BELOW INTO WHAT i HAVE DONE
+        // THIS IS THE NEW METHOD, 10-29, FROM GREG.  REPLACES METHOD BELOW IT.
+        // SEE "8-19 AND BEYOND" NOTES FOR CHANGES TO THE FRONT-END, HIGHLIGHTED IN PINK 10-29
+        //PUT: api/Requests/Reject/5
+        [HttpPut("reject/{id}")]
+        public async Task<IActionResult> PutStatusReject(int id, Request request) {
+            request.Status = "REJECTED";  // RequestStatus.Rejected instead of "REJECTED" //for Greg. He had a class for this.
+            // i assume i could put StatusIsRejected  --see const string above
+            return await PutRequest(id, request);
+        }
+
+
+
+        //METHOD BELOW IS NOT RIGHT ANYMORE.  SEE ABOVE FOR THE NEW UPDATED METHOD
         // Takes id (from reviewer), changes status to "REJECTED" 
         // PUT: api/Requests/reject/5
+        /*
         [HttpPut("reject/{id}")]    
         public async Task<IActionResult> PutStatusRejected(int id) { 
             if (await SetStatusValidAsync(id, StatusIsRejected)) {
@@ -66,7 +85,9 @@ namespace PrsCapBackendProject.Controllers
             } else {
                 return NotFound();
             }
-        }
+        }   */
+
+
 
         // User picks one of their pre-existing requests in the Db, sets it to REVIEW status.
         // URL includes a coded message (review/5) which this method is listening for. 
