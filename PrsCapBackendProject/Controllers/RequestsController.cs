@@ -89,19 +89,20 @@ namespace PrsCapBackendProject.Controllers
 
 
 
-        // User picks one of their pre-existing requests in the Db, sets it to REVIEW status.
+        // User picks one of their pre-existing requests in the Db, asks that it be set to REVIEW status.
         // URL includes a coded message (review/5) which this method is listening for. 
+        // 10-30 Added a parameter.  Put methods apparently have an id AND a request instance.
         // PUT: api/Requests/review/5
         [HttpPut("review/{id}")]    
-        public async Task<IActionResult> PutStatusReview(int id) {  
-            var request = await _context.Requests.FindAsync(id);
-            if(request == null) {
+        public async Task<IActionResult> PutStatusReview(int id, Request request) {  
+            var dbRqst = await _context.Requests.FindAsync(id);
+            if(dbRqst == null) {
                 return NotFound();
             }
-            if (Decimal.Compare(request.Total, 50.0M) <= 0) {    // M indicates decimal 
-                request.Status = StatusIsApproved;
+            if (Decimal.Compare(dbRqst.Total, 50.0M) <= 0) {    // M indicates decimal 
+                dbRqst.Status = StatusIsApproved;
             } else {
-                request.Status = StatusIsReview;
+                dbRqst.Status = StatusIsReview;
             }
             _context.SaveChanges();
             return NoContent();
