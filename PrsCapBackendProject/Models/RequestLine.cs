@@ -14,7 +14,7 @@ namespace PrsCapBackendProject.Models {
 
         // Specs: "There should be a virtual `Product` instance in the RequestLine to hold the FK instance when reading a RequestLine for the Product."
         public virtual Product Product { get; set; }
-        [JsonIgnore]
+        [JsonIgnore] // avoids infinite loop
         public virtual Request Request { get; set; }  // added late in game, appears to be necessary.
 
 
